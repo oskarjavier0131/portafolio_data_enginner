@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Oscar Javier — Data Engineer & Cloud Solutions{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero" style="position: relative;">
+    <div class="container" style="position: relative; z-index: 1;">
+        <div class="hero__inner">
+            <div class="hero__content">
+                {% if site_config.available %}
+                <div class="badge-available reveal" style="margin-bottom: 28px; display: inline-flex;">
+                    <span class="badge-available__dot"></span>
+                    Disponible para proyectos
+                </div>
+                {% endif %}
+
+                <h1 class="hero__title reveal reveal-delay-1">
+                    Soy Oscar Javier<span style="color: var(--text-secondary)">.</span>
+                </h1>
+
+                <p class="hero__subtitle reveal reveal-delay-2">
+                    Data Engineer & Cloud Solutions. Transformo los datos de tu PYME en decisiones
+                    inteligentes. Especialista en migración on-premise → Azure, Databricks y Fabric.
+                </p>
+
+                <div class="hero__actions reveal reveal-delay-3">
+                    <a href="{% url 'contact' %}" class="btn btn--primary">Contáctame</a>
+                    <a href="{% static 'cv/oscar_javier_cv.pdf' %}"
+                       class="btn btn--outline"
+                       download>
+                        Descargar CV
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero__image-wrap reveal">
+                {% if site_config.profile_image %}
+                <img src="{{ site_config.profile_image.url }}"
+                     alt="Oscar Javier — Data Engineer"
+                     class="hero__image"
+                     fetchpriority="high">
+                {% else %}
+                <div class="hero__image-placeholder">👨‍💻</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% if projects %}
+<!-- PROYECTOS DESTACADOS -->
+<section>
+    <div class="container">
+        <div class="section-header section-header--row">
+            <div>
+                <span class="section-label">Proyectos</span>
+                <h2 class="section-title">Trabajo destacado</h2>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            {% for project in projects %}
+            <div class="project-card reveal reveal-delay-{{ forloop.counter }}">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-card__image" loading="lazy">
+                {% else %}
+                <div class="project-card__image-placeholder">🏢</div>
+                {% endif %}
+                <div class="project-card__body">
+                    {% if project.get_technologies_list %}
+                    <div class="project-card__tags">
+                        {% for tech in project.get_technologies_list %}
+                        <span class="tag">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <h3 class="project-card__title">{{ project.title }}</h3>
+                    <p class="project-card__desc">{{ project.short_desc }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if certifications %}
+<!-- CERTIFICACIONES -->
+<section id="certificaciones">
+    <div class="container">
+        <div class="section-header section-header--row">
+            <div>
+                <span class="section-label">Certificaciones</span>
+                <h2 class="section-title">Logros y Reconocimientos</h2>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            {% for cert in certifications %}
+            <div class="cert-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="cert-card__badge">
+                    {% if cert.image %}
+                    <img src="{{ cert.image.url }}" alt="{{ cert.name }}" loading="lazy">
+                    {% else %}
+                    <span class="cert-card__badge-placeholder">📜</span>
+                    {% endif %}
+                </div>
+
+                <div class="cert-card__body">
+                    <h3 class="cert-card__title">{{ cert.name }}</h3>
+                    <p class="cert-card__org">{{ cert.issuing_organization }}</p>
+
+                    {% if cert.description %}
+                    <p class="cert-card__desc">{{ cert.description|truncatewords:20 }}</p>
+                    {% endif %}
+
+                    <div class="cert-card__meta">
+                        <span>Emitida {{ cert.issue_date|date:"M Y" }}</span>
+                        {% if cert.expiration_date %}
+                            {% if cert.is_expired %}
+                            <span class="cert-card__tag cert-card__tag--expired">Vencida</span>
+                            {% else %}
+                            <span class="cert-card__tag cert-card__tag--valid">Vigente</span>
+                            {% endif %}
+                        {% else %}
+                        <span class="cert-card__tag cert-card__tag--valid">Sin vencimiento</span>
+                        {% endif %}
+                    </div>
+
+                    {% if cert.credential_id %}
+                    <p class="cert-card__id">ID: {{ cert.credential_id }}</p>
+                    {% endif %}
+                </div>
+
+                {% if cert.credential_url %}
+                <a href="{{ cert.credential_url }}" target="_blank" rel="noopener" class="cert-card__link">
+                    Ver credencial →
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if latest_posts %}
+<!-- BLOG -->
+<section>
+    <div class="container">
+        <div class="section-header section-header--row">
+            <div>
+                <span class="section-label">Blog</span>
+                <h2 class="section-title">Últimas reflexiones</h2>
+            </div>
+            <a href="{% url 'blog' %}" class="link-arrow">Ver todos →</a>
+        </div>
+
+        <div class="grid-3">
+            {% for post in latest_posts %}
+            <a href="{% url 'post_detail' post.slug %}" class="post-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="post-card__body">
+                    <div class="post-card__meta">
+                        <span class="post-card__date">{{ post.published_at|date:"d M Y" }}</span>
+                        {% if post.category %}
+                        <span class="post-card__category">{{ post.category.name }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="post-card__title">{{ post.title }}</h3>
+                    <p class="post-card__excerpt">{{ post.excerpt|truncatewords:20 }}</p>
+                    <span class="post-card__link">Leer más →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+{% include "components/cta_section.html" %}
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

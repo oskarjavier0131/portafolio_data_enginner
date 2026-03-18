@@ -1,0 +1,109 @@
+/* =====================================================
+   base.css — Variables, reset y tipografía global
+   Subtle Folio Dark Mode — Oscar Javier Portfolio
+   ===================================================== */
+
+/* Google Fonts cargado desde base.html con <link rel="preconnect"> para evitar bloqueo */
+
+:root {
+    /* Colores */
+    --bg-primary:      #0A0A0A;
+    --bg-secondary:    #111111;
+    --bg-tertiary:     #1A1A1A;
+    --border-color:    #222222;
+    --border-hover:    #333333;
+    --text-primary:    #FFFFFF;
+    --text-secondary:  #888888;
+    --text-tertiary:   #555555;
+    --accent:          #FFFFFF;
+    --accent-green:    #4ADE80;
+    --accent-green-bg: #0A2A1B;
+    --smoke-purple:    130, 60, 220;   /* Coincide con PURPLE_RGB en smoke.js */
+
+    /* Tipografía */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Spacing */
+    --section-gap:   96px;
+    --card-radius:   12px;
+    --container-max: 1200px;
+
+    /* Transiciones */
+    --transition: 0.3s ease;
+}
+
+/* Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Tipografía base */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+
+p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 3px;
+}
+
+/* Focus visible */
+:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 3px;
+}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contacto — Oscar Javier{% endblock %}
+
+{% block content %}
+<section style="padding-top: 120px; min-height: 100vh;">
+    <div class="container">
+        <div style="max-width: 760px; margin: 0 auto;">
+
+            <span class="section-label reveal">Contacto</span>
+            <h1 class="section-title reveal reveal-delay-1" style="margin-bottom: 12px;">Hablemos</h1>
+            <p class="reveal reveal-delay-2" style="color: var(--text-secondary); margin-bottom: 56px; font-size: 1.1rem;">
+                Cuéntame sobre tu proyecto y encontremos juntos la mejor solución para tu empresa.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; flex-wrap: wrap;">
+
+                <!-- Formulario -->
+                <form method="post" class="reveal reveal-delay-2" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" class="form-label">
+                            {{ field.label }}{% if not field.field.required %} <span style="color: var(--text-tertiary); font-size: 0.8rem;">(opcional)</span>{% endif %}
+                        </label>
+                        {% if field.field.widget.input_type == 'textarea' %}
+                            <textarea name="{{ field.html_name }}"
+                                      id="{{ field.id_for_label }}"
+                                      class="form-textarea{% if field.errors %} form-input--error{% endif %}"
+                                      placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}"
+                                      rows="5">{{ field.value|default:'' }}</textarea>
+                        {% else %}
+                            <input type="{{ field.field.widget.input_type }}"
+                                   name="{{ field.html_name }}"
+                                   id="{{ field.id_for_label }}"
+                                   value="{{ field.value|default:'' }}"
+                                   class="form-input{% if field.errors %} form-input--error{% endif %}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn--primary" style="width: 100%; justify-content: center;">
+                        Enviar mensaje →
+                    </button>
+                </form>
+
+                <!-- Info de contacto -->
+                <div class="reveal reveal-delay-3">
+                    <div class="card" style="margin-bottom: 16px;">
+                        <h3 class="card__title" style="font-size: 0.9rem; margin-bottom: 16px; color: var(--text-secondary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;">
+                            También puedes escribirme
+                        </h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <a href="https://wa.me/57{{ site_config.whatsapp_number }}"
+                               target="_blank" rel="noopener"
+                               style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 0.9rem; transition: color 0.3s;">
+                                📱 WhatsApp: +57 {{ site_config.whatsapp_number }}
+                            </a>
+                            {% if site_config.email %}
+                            <a href="mailto:{{ site_config.email }}"
+                               style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 0.9rem; transition: color 0.3s;">
+                                ✉️ {{ site_config.email }}
+                            </a>
+                            {% endif %}
+                            {% if site_config.linkedin_url %}
+                            <a href="{{ site_config.linkedin_url }}" target="_blank" rel="noopener"
+                               style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 0.9rem; transition: color 0.3s;">
+                                💼 LinkedIn
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                            Respondo en menos de 24 horas. Basado en Bogotá, Colombia 🇨🇴
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-input--error { border-color: #F87171 !important; }
+    @media (max-width: 768px) {
+        section > .container > div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Oscar Javier — Data Engineer{% endblock %}</title>
+    {% include "includes/meta_tags.html" %}
+    {% load static %}
+    {% if site_config.profile_image %}
+    <link rel="icon" href="{{ site_config.profile_image.url }}" sizes="32x32">
+    <link rel="apple-touch-icon" href="{{ site_config.profile_image.url }}">
+    {% endif %}
+    <!-- Google Fonts: preconnect + carga no bloqueante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Efecto humo global -->
+    <canvas id="smoke-canvas" style="
+        position: fixed;
+        bottom: 0; left: 0;
+        width: 100vw; height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+        will-change: contents;
+        contain: strict;
+    "></canvas>
+    <div class="smoke-gradient"></div>
+
+    {% include "components/navbar.html" %}
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="flash-message">
+                ✅ {{ message }}
+                <span class="flash-message__close" onclick="this.parentElement.remove()">✕</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "components/footer.html" %}
+    {% include "components/whatsapp_widget.html" %}
+
+    {% load static %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/smoke.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Blog — Oscar Javier{% endblock %}
+
+{% block content %}
+<section style="padding-top: 120px;">
+    <div class="container">
+        <span class="section-label reveal">Blog</span>
+        <h1 class="section-title reveal reveal-delay-1" style="margin-bottom: 12px;">Reflexiones IT</h1>
+        <p class="reveal reveal-delay-2" style="color: var(--text-secondary); margin-bottom: 56px; font-size: 1.1rem;">
+            Datos, cloud, desarrollo web y todo lo que aprendo en el camino.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 260px; gap: 48px; align-items: start;">
+
+            <!-- Posts -->
+            <div>
+                {% if posts %}
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    {% for post in posts %}
+                    <a href="{% url 'post_detail' post.slug %}" class="post-card reveal" style="flex-direction: row; padding: 28px; gap: 20px; align-items: flex-start;">
+                        <div class="post-card__body" style="padding: 0; border: none; background: none;">
+                            <div class="post-card__meta">
+                                <span class="post-card__date">{{ post.published_at|date:"d M Y" }}</span>
+                                {% if post.category %}
+                                <span class="post-card__category">{{ post.category.name }}</span>
+                                {% endif %}
+                            </div>
+                            <h2 class="post-card__title" style="font-size: 1.1rem;">{{ post.title }}</h2>
+                            <p class="post-card__excerpt">{{ post.excerpt|truncatewords:25 }}</p>
+                            <span class="post-card__link" style="margin-top: 12px;">Leer más →</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="card" style="text-align: center; padding: 48px;">
+                    <p style="color: var(--text-tertiary); font-size: 1rem;">
+                        Próximamente — estoy preparando los primeros artículos.
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="reveal">
+                {% if categories %}
+                <div class="card" style="margin-bottom: 16px;">
+                    <h3 style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 16px;">
+                        Categorías
+                    </h3>
+                    <ul style="display: flex; flex-direction: column; gap: 8px;">
+                        {% for cat in categories %}
+                        <li>
+                            <a href="#" style="font-size: 0.9rem; color: var(--text-secondary); transition: color 0.3s;">
+                                {{ cat.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if tags %}
+                <div class="card">
+                    <h3 style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 16px;">
+                        Etiquetas
+                    </h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        {% for tag in tags %}
+                        <span class="tag">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </aside>
+
+        </div>
+    </div>
+</section>
+
+{% include "components/cta_section.html" %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    @media (max-width: 768px) {
+        section > .container > div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+{% endblock %}

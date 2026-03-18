@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "excalidraw": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "excalidraw-mcp",
+        "--diagram",
+        "C:\\Users\\USER\\Desktop\\PORTAFOLIO\\portafolio_lubianka\\diagrams\\portfolio.excalidraw"
+      ],
+      "env": {}
+    }
+  }
+}

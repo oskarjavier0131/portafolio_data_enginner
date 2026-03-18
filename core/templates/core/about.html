@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sobre Mí — Oscar Javier{% endblock %}
+
+{% block content %}
+<section style="padding-top: 120px;">
+    <div class="container">
+
+        <!-- Bio -->
+        <div style="display: flex; gap: 64px; align-items: flex-start; margin-bottom: 80px; flex-wrap: wrap;">
+            <div style="flex-shrink: 0;">
+                {% if site_config.profile_image %}
+                <img src="{{ site_config.profile_image.url }}"
+                     alt="Oscar Javier"
+                     style="width: 200px; height: 200px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
+                {% else %}
+                <div style="width: 200px; height: 200px; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    👨‍💻
+                </div>
+                {% endif %}
+            </div>
+
+            <div style="flex: 1; min-width: 280px;">
+                <span class="section-label reveal">Sobre mí</span>
+                <h1 class="reveal reveal-delay-1" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px;">
+                    Oscar Javier
+                </h1>
+                <p class="reveal reveal-delay-2" style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px;">
+                    Data Engineer @ NTT DATA · Bogotá, Colombia
+                </p>
+                {% if site_config.about_text %}
+                <p class="reveal reveal-delay-3" style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 28px;">
+                    {{ site_config.about_text }}
+                </p>
+                {% else %}
+                <p class="reveal reveal-delay-3" style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 28px;">
+                    Data Engineer con experiencia en proyectos con las empresas más grandes de Colombia —
+                    Ecopetrol (Microsoft Fabric) y Sura (Databricks). Me especializo en modernizar sistemas
+                    legacy y llevar los datos de PYMEs a la nube con soluciones accesibles y escalables.
+                </p>
+                {% endif %}
+
+                <div class="reveal reveal-delay-4" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="{% url 'contact' %}" class="btn btn--primary">Contáctame</a>
+                    {% if site_config.linkedin_url %}
+                    <a href="{{ site_config.linkedin_url }}" target="_blank" rel="noopener" class="btn btn--outline">LinkedIn</a>
+                    {% endif %}
+                    {% if site_config.github_url %}
+                    <a href="{{ site_config.github_url }}" target="_blank" rel="noopener" class="btn btn--outline">GitHub</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Experiencia -->
+        <div style="margin-bottom: 80px;">
+            <span class="section-label reveal">Experiencia</span>
+            <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 40px;">Proyectos destacados</h2>
+
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <div class="card reveal reveal-delay-1" style="border-radius: 12px 12px 4px 4px;">
+                    <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">🏭</div>
+                        <div>
+                            <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap;">
+                                <h3 class="card__title" style="margin: 0;">NTT DATA — Ecopetrol</h3>
+                                <span class="tag">Microsoft Fabric</span>
+                                <span class="tag">Medallion Architecture</span>
+                            </div>
+                            <p class="card__desc">Migración y modernización de arquitectura de datos con Microsoft Fabric para la principal empresa de petróleo de Colombia. Implementación de arquitectura medallion en Azure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card reveal reveal-delay-2" style="border-radius: 4px;">
+                    <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">🏦</div>
+                        <div>
+                            <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap;">
+                                <h3 class="card__title" style="margin: 0;">NTT DATA — Sura</h3>
+                                <span class="tag">Azure Databricks</span>
+                                <span class="tag">Delta Lake</span>
+                                <span class="tag">PySpark</span>
+                            </div>
+                            <p class="card__desc">Migración de ETL legacy (Pentaho Data Integration, SAP Data Services) a Databricks. Modernización de pipelines con PySpark y arquitectura lakehouse en Delta Lake.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Skills -->
+        {% if skills_by_category %}
+        <div>
+            <span class="section-label reveal">Tecnologías</span>
+            <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 40px;">Stack técnico</h2>
+
+            <div class="grid-2">
+                {% for category, skill_list in skills_by_category.items %}
+                <div class="reveal reveal-delay-{{ forloop.counter }}">
+                    <h3 style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;">
+                        {{ category }}
+                    </h3>
+                    {% for skill in skill_list %}
+                    <div class="skill-item">
+                        <div class="skill-item__header">
+                            <span class="skill-item__name">{{ skill.name }}</span>
+                            <span class="skill-item__pct">{{ skill.proficiency }}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-target="{{ skill.proficiency }}"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div>
+            <span class="section-label reveal">Tecnologías</span>
+            <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 40px;">Stack técnico</h2>
+            <div class="grid-2">
+                <div class="reveal reveal-delay-1">
+                    <h3 style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;">Lenguajes</h3>
+                    {% for skill_name in default_langs %}
+                    <div class="skill-item">
+                        <div class="skill-item__header">
+                            <span class="skill-item__name">{{ skill_name }}</span>
+                            <span class="skill-item__pct">—</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar__fill" data-target="90"></div></div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <h3 style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;">Cloud & Plataformas</h3>
+                    {% for skill_name in default_cloud %}
+                    <div class="skill-item">
+                        <div class="skill-item__header">
+                            <span class="skill-item__name">{{ skill_name }}</span>
+                            <span class="skill-item__pct">—</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-bar__fill" data-target="85"></div></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% include "components/cta_section.html" %}
+{% endblock %}

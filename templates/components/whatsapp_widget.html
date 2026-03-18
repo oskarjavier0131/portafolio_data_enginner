@@ -1,0 +1,16 @@
+<div class="whatsapp-widget">
+    <div class="whatsapp-widget__tooltip">💬 Escríbeme por WhatsApp</div>
+    <a href="https://wa.me/57{{ site_config.whatsapp_number }}?text=Hola%20Oscar%2C%20vi%20tu%20portafolio%20y%20me%20interesa%20hablar%20sobre%20mi%20proyecto"
+       class="whatsapp-widget__btn"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Contactar por WhatsApp">
+        {% if site_config.profile_image %}
+        <img src="{{ site_config.profile_image.url }}"
+             alt="Oscar Javier — Data Engineer"
+             class="whatsapp-widget__image">
+        {% else %}
+        📱
+        {% endif %}
+    </a>
+</div>

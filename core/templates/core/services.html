@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Servicios — Oscar Javier{% endblock %}
+
+{% block content %}
+<section style="padding-top: 120px;">
+    <div class="container">
+        <span class="section-label reveal">Servicios</span>
+        <h1 class="section-title reveal reveal-delay-1" style="margin-bottom: 16px;">¿Qué puedo hacer por ti?</h1>
+        <p class="reveal reveal-delay-2" style="color: var(--text-secondary); max-width: 520px; margin-bottom: 64px; font-size: 1.1rem;">
+            Llevo la experiencia de trabajar con las empresas más grandes de Colombia para transformar digitalmente tu PYME.
+        </p>
+
+        <div class="grid-2">
+            {% for service in services %}
+            <div class="card reveal reveal-delay-{{ forloop.counter }}">
+                <span class="card__icon">{{ service.icon_svg }}</span>
+                <h2 class="card__title" style="font-size: 1.25rem; margin-bottom: 12px;">{{ service.title }}</h2>
+                <p class="card__desc" style="margin-bottom: 20px;">{{ service.description }}</p>
+                {% if service.detailed_info %}
+                <details style="margin-top: 16px;">
+                    <summary style="font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; list-style: none;">
+                        Ver más detalles →
+                    </summary>
+                    <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                        {{ service.detailed_info }}
+                    </p>
+                </details>
+                {% endif %}
+                <div style="margin-top: 24px;">
+                    <a href="{% url 'contact' %}" class="btn btn--outline" style="font-size: 0.85rem; padding: 8px 16px;">
+                        Solicitar cotización →
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Servicios por defecto si no hay datos en BD -->
+            {% for s in "☁️ Migración a la Nube|Migra tus datos de forma segura a Azure Databricks o Microsoft Fabric con arquitectura medallion.,🔄 Ingeniería de Datos & ETL|Modernización de pipelines ETL legacy (Pentaho, SAP) a PySpark en la nube.,🏗️ Arquitectura de Datos|Diseño de arquitecturas modernas: Delta Lake, lakehouse, pipelines en tiempo real.,💻 Desarrollo Web Django|Aplicaciones web profesionales con Python/Django para automatizar procesos de tu empresa.,📋 Consultoría IT para PYMEs|Estrategia de datos accesible y roadmap tecnológico adaptado a tu presupuesto." %}
+            <div class="card reveal">
+                <span class="card__icon">{{ s|slice:":2" }}</span>
+                <h2 class="card__title" style="font-size: 1.25rem; margin-bottom: 12px;">{{ s|slice:"3:"|cut:"|*" }}</h2>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include "components/cta_section.html" %}
+{% endblock %}

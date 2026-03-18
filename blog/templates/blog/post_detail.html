@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} — Oscar Javier{% endblock %}
+
+{% block content %}
+<article style="padding-top: 120px; padding-bottom: 96px;">
+    <div class="container">
+        <div style="max-width: 720px; margin: 0 auto;">
+
+            <!-- Header del post -->
+            <div style="margin-bottom: 40px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                    {% if post.category %}
+                    <span class="post-card__category">{{ post.category.name }}</span>
+                    {% endif %}
+                    <span style="color: var(--text-tertiary); font-size: 0.875rem;">
+                        {{ post.published_at|date:"d de F de Y" }}
+                    </span>
+                </div>
+
+                <h1 class="reveal" style="font-size: clamp(1.75rem, 4vw, 2.75rem); margin-bottom: 20px; line-height: 1.2;">
+                    {{ post.title }}
+                </h1>
+
+                <p class="reveal reveal-delay-1" style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7;">
+                    {{ post.excerpt }}
+                </p>
+
+                {% if post.tags.exists %}
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px;" class="reveal reveal-delay-2">
+                    {% for tag in post.tags.all %}
+                    <span class="tag">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin-bottom: 40px;"></div>
+
+            <!-- Imagen destacada -->
+            {% if post.featured_image %}
+            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}"
+                 style="width: 100%; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color);">
+            {% endif %}
+
+            <!-- Contenido -->
+            <div class="post-content reveal">
+                {{ post.content|safe }}
+            </div>
+
+            <!-- Navegación -->
+            <div style="margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; gap: 12px;">
+                <a href="{% url 'blog' %}" class="btn btn--outline">← Volver al Blog</a>
+                <a href="{% url 'contact' %}" class="btn btn--primary">Hablemos →</a>
+            </div>
+
+        </div>
+    </div>
+</article>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Tipografía del contenido del post */
+.post-content {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+.post-content h2, .post-content h3, .post-content h4 {
+    color: var(--text-primary);
+    margin-top: 40px;
+    margin-bottom: 16px;
+}
+.post-content p { margin-bottom: 20px; }
+.post-content ul, .post-content ol {
+    padding-left: 24px;
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+}
+.post-content li { margin-bottom: 8px; }
+.post-content img {
+    width: 100%;
+    border-radius: 8px;
+    margin: 24px 0;
+    border: 1px solid var(--border-color);
+}
+.post-content a { color: var(--text-primary); text-decoration: underline; }
+.post-content code {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.9em;
+    color: var(--accent-green);
+}
+.post-content pre {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 24px 0;
+}
+.post-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+.post-content blockquote {
+    border-left: 3px solid var(--border-hover);
+    padding-left: 20px;
+    margin: 24px 0;
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+</style>
+{% endblock %}
