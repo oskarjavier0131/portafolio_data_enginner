@@ -57,9 +57,21 @@ class SkillAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['title', 'short_desc', 'is_featured', 'order']
+    list_display = ['title', 'project_type', 'short_desc', 'is_featured', 'order']
     list_editable = ['is_featured', 'order']
+    list_filter = ['project_type', 'is_featured']
     prepopulated_fields = {'slug': ('title',)}
+    fieldsets = (
+        ('Información principal', {
+            'fields': ('title', 'slug', 'short_desc', 'description', 'project_type'),
+        }),
+        ('Media', {
+            'fields': ('image', 'video'),
+        }),
+        ('Detalles', {
+            'fields': ('technologies', 'url', 'order', 'is_featured'),
+        }),
+    )
 
 
 @admin.register(ContactMessage)

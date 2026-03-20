@@ -42,11 +42,26 @@ class Skill(models.Model):
 
 
 class Project(models.Model):
+    TYPE_CHOICES = [
+        ('data', 'Data Engineering'),
+        ('automation', 'Automatización n8n'),
+        ('other', 'Otro'),
+    ]
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     short_desc = models.CharField(max_length=120, blank=True)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
+    video = models.FileField(
+        upload_to='projects/videos/',
+        blank=True, null=True,
+        help_text="Video demo del proyecto (mp4, webm — máx 50 MB)"
+    )
+    project_type = models.CharField(
+        max_length=20, choices=TYPE_CHOICES, default='data',
+        verbose_name="Tipo de proyecto"
+    )
     technologies = models.CharField(max_length=300, blank=True, help_text="Tags separados por coma")
     url = models.URLField(blank=True)
     order = models.IntegerField(default=0)

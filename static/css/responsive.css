@@ -6,9 +6,34 @@
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
 
+    /* Services */
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Industries */
+    .industries-grid { grid-template-columns: repeat(3, 1fr); }
+
+    /* Stats */
+    .stats-grid { flex-wrap: wrap; }
+    .stat-item  { min-width: 45%; }
+
+    /* Process */
+    .process-steps { flex-direction: column; }
+    .process-step__connector {
+        width: 2px;
+        height: 30px;
+        top: 0;
+        align-self: center;
+    }
+    .process-step__connector::after { content: '↓'; top: auto; bottom: -12px; right: -10px; }
+
     .hero__image, .hero__image-placeholder {
         width: 180px;
         height: 180px;
+    }
+
+    .hero__image-float {
+        width: 300px;
+        height: 300px;
     }
 }
 
@@ -33,6 +58,24 @@
         justify-content: center;
     }
 
+    .hero__float-tag { display: none; }
+    .scroll-indicator { display: none; }
+
+    /* Stack strip */
+    .stack-strip__inner {
+        flex-direction: column;
+        border-radius: 12px;
+    }
+
+    .stack-strip__sep {
+        width: auto;
+        height: 1px;
+    }
+
+    .stack-strip__category {
+        padding: 20px;
+    }
+
     .hero__subtitle {
         margin-left: auto;
         margin-right: auto;
@@ -42,6 +85,15 @@
     .grid-3, .grid-2, .grid-4 {
         grid-template-columns: 1fr;
     }
+
+    /* New sections */
+    .services-grid     { grid-template-columns: 1fr; }
+    .industries-grid   { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid     { grid-template-columns: 1fr; }
+    .stats-grid        { flex-direction: column; }
+    .stats-sep         { width: auto; height: 1px; }
+    .stat-item         { padding: 20px; }
+    .hero__badges      { justify-content: center; }
 
     /* Section header row */
     .section-header--row {

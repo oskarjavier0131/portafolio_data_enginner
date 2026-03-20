@@ -1,5 +1,5 @@
 /**
- * smoke.js — Efecto de humo morado optimizado
+ * smoke.js — Efecto de humo verde neón (suave)
  * Canvas particle system, vanilla JS, sin dependencias
  */
 
@@ -48,18 +48,15 @@
             this.rotation      = Math.random() * Math.PI * 2;
             this.rotationSpeed = (Math.random() - 0.5) * 0.004;
 
-            this.alpha    = initial ? Math.random() * 0.08 : 0;
-            this.alphaMax = 0.03 + Math.random() * 0.04;
+            this.alpha    = initial ? Math.random() * 0.04 : 0;
+            this.alphaMax = 0.012 + Math.random() * 0.018;
             this.fadeIn   = !initial;
             this.growth   = 0.2 + Math.random() * 0.25;
 
-            // Pre-calcular color una sola vez por ciclo de vida
-            const hue = 265 + (Math.random() - 0.5) * 25;
-            const sat = 65 + Math.random() * 25;
-            const lgt = 40 + Math.random() * 30;
-            const r = Math.min(255, Math.round(100 + (hue - 265) * 0.5));
-            const g = Math.min(255, Math.round(30 + lgt * 0.3));
-            const b = Math.min(255, Math.round(180 + sat * 0.8));
+            // Pre-calcular color una sola vez por ciclo de vida — verde neón
+            const r = Math.min(255, Math.round(Math.random() * 15));
+            const g = Math.min(255, Math.round(200 + Math.random() * 55));
+            const b = Math.min(255, Math.round(80 + Math.random() * 70));
             this.rgb = `${r}, ${g}, ${b}`;
         }
 
