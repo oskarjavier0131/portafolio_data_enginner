@@ -58,24 +58,6 @@
         justify-content: center;
     }
 
-    .hero__float-tag { display: none; }
-    .scroll-indicator { display: none; }
-
-    /* Stack strip */
-    .stack-strip__inner {
-        flex-direction: column;
-        border-radius: 12px;
-    }
-
-    .stack-strip__sep {
-        width: auto;
-        height: 1px;
-    }
-
-    .stack-strip__category {
-        padding: 20px;
-    }
-
     .hero__subtitle {
         margin-left: auto;
         margin-right: auto;
