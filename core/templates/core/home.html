@@ -52,7 +52,12 @@
 
             <div class="hero__image-wrap reveal">
                 <div class="hero__image-float">
-                    {% if site_config.profile_image %}
+                    {% if site_config.profile_image_static %}
+                    <img src="{% static site_config.profile_image_static %}"
+                         alt="Oscar Javier — Data Engineer & n8n Specialist"
+                         class="hero__image"
+                         fetchpriority="high">
+                    {% elif site_config.profile_image %}
                     <img src="{{ site_config.profile_image.url }}"
                          alt="Oscar Javier — Data Engineer & n8n Specialist"
                          class="hero__image"

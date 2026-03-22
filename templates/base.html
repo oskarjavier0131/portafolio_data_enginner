@@ -6,7 +6,10 @@
     <title>{% block title %}Oscar Javier — Data Engineer{% endblock %}</title>
     {% include "includes/meta_tags.html" %}
     {% load static %}
-    {% if site_config.profile_image %}
+    {% if site_config.profile_image_static %}
+    <link rel="icon" href="{% static site_config.profile_image_static %}" sizes="32x32">
+    <link rel="apple-touch-icon" href="{% static site_config.profile_image_static %}">
+    {% elif site_config.profile_image %}
     <link rel="icon" href="{{ site_config.profile_image.url }}" sizes="32x32">
     <link rel="apple-touch-icon" href="{{ site_config.profile_image.url }}">
     {% endif %}

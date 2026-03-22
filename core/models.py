@@ -101,6 +101,10 @@ class SiteConfig(models.Model):
     tagline = models.CharField(max_length=200, default="Data Engineer & Cloud Solutions")
     about_text = models.TextField(blank=True)
     profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
+    profile_image_static = models.CharField(
+        max_length=200, blank=True,
+        help_text="Ruta dentro de static/ (ej: img/avatar.webp). Tiene prioridad sobre 'profile_image' para producción."
+    )
     whatsapp_number = models.CharField(max_length=20, default="3112874770")
     email = models.EmailField(blank=True)
     github_url = models.URLField(blank=True)
