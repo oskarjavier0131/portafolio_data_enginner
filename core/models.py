@@ -105,7 +105,7 @@ class SiteConfig(models.Model):
         max_length=200, blank=True,
         help_text="Ruta dentro de static/ (ej: img/avatar.webp). Tiene prioridad sobre 'profile_image' para producción."
     )
-    whatsapp_number = models.CharField(max_length=20, default="3112874770")
+    whatsapp_number = models.CharField(max_length=20, default="14155238886")
     email = models.EmailField(blank=True)
     github_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
