@@ -25,17 +25,16 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Efecto humo global -->
-    <canvas id="smoke-canvas" style="
+    <!-- Efecto Matrix global -->
+    <canvas id="matrix-canvas" style="
         position: fixed;
-        bottom: 0; left: 0;
+        top: 0; left: 0;
         width: 100vw; height: 100vh;
         pointer-events: none;
         z-index: 0;
         will-change: contents;
         contain: strict;
     "></canvas>
-    <div class="smoke-gradient"></div>
 
     {% include "components/navbar.html" %}
 
@@ -57,7 +56,7 @@
 
     {% load static %}
     <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/smoke.js' %}"></script>
+    <script src="{% static 'js/matrix.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
