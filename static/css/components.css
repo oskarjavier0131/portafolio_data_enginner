@@ -56,7 +56,8 @@
 }
 
 .navbar__link:hover,
-.navbar__link.active {
+.navbar__link.active,
+.navbar__link--highlight {
     color: #00ff88;
     background: rgba(0, 255, 136, 0.1);
     border-color: rgba(0, 255, 136, 0.4);
@@ -135,8 +136,9 @@
     transition: color var(--transition);
 }
 
-.navbar__mobile-link:hover {
-    color: var(--text-primary);
+.navbar__mobile-link:hover,
+.navbar__mobile-link.navbar__link--highlight {
+    color: #00ff88;
 }
 
 /* --- Badge disponible --- */
