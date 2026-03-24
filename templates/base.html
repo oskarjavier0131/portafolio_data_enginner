@@ -52,11 +52,12 @@
     </main>
 
     {% include "components/footer.html" %}
-    {% include "components/whatsapp_widget.html" %}
+    {% include "components/clippy_widget.html" %}
 
     {% load static %}
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/matrix.js' %}"></script>
+    <script src="{% static 'js/clippy.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

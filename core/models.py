@@ -111,6 +111,29 @@ class SiteConfig(models.Model):
     linkedin_url = models.URLField(blank=True)
     available = models.BooleanField(default=True, verbose_name="Disponible para proyectos")
 
+    # Widget Clippy
+    clippy_enabled = models.BooleanField(
+        default=True,
+        verbose_name="Widget Clippy activo",
+        help_text="Activa o desactiva el asistente inteligente flotante"
+    )
+    clippy_default_message = models.CharField(
+        max_length=300,
+        default="¿En qué puedo ayudarte hoy?",
+        verbose_name="Mensaje por defecto",
+        help_text="Mensaje cuando no hay sección específica detectada"
+    )
+    clippy_delay_desktop = models.IntegerField(
+        default=30,
+        verbose_name="Delay desktop (seg)",
+        help_text="Segundos antes de que aparezca en escritorio"
+    )
+    clippy_delay_mobile = models.IntegerField(
+        default=20,
+        verbose_name="Delay mobile (seg)",
+        help_text="Segundos antes de que aparezca en móvil"
+    )
+
     class Meta:
         verbose_name = 'Configuración del sitio'
         verbose_name_plural = 'Configuración del sitio'

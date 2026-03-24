@@ -88,6 +88,19 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 @admin.register(SiteConfig)
 class SiteConfigAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Identidad', {
+            'fields': ('site_title', 'tagline', 'about_text', 'profile_image', 'profile_image_static'),
+        }),
+        ('Contacto y redes', {
+            'fields': ('whatsapp_number', 'email', 'github_url', 'linkedin_url', 'available'),
+        }),
+        ('Widget Clippy', {
+            'fields': ('clippy_enabled', 'clippy_default_message', 'clippy_delay_desktop', 'clippy_delay_mobile'),
+            'description': 'Asistente inteligente flotante que guía al visitante hacia WhatsApp.',
+        }),
+    )
+
     def has_add_permission(self, request):
         return not SiteConfig.objects.exists()
 

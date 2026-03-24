@@ -1,0 +1,41 @@
+{% load static %}
+{% if site_config.clippy_enabled %}
+<div id="clippy-widget"
+     class="clippy-widget"
+     data-delay-desktop="{{ site_config.clippy_delay_desktop|default:30 }}"
+     data-delay-mobile="{{ site_config.clippy_delay_mobile|default:20 }}"
+     data-default-message="{{ site_config.clippy_default_message|default:'¿En qué puedo ayudarte hoy?' }}">
+
+    <!-- Burbuja de mensaje -->
+    <div id="clippy-bubble" class="clippy-bubble">
+        <button class="clippy-bubble__close" id="clippy-close" aria-label="Cerrar widget">×</button>
+        <p id="clippy-message" class="clippy-bubble__text">{{ site_config.clippy_default_message|default:"¿En qué puedo ayudarte hoy?" }}</p>
+        <a href="https://wa.me/57{{ site_config.whatsapp_number }}?text=Hola%20Oscar%2C%20vi%20tu%20portafolio%20y%20me%20interesa%20tu%20servicio"
+           class="clippy-bubble__cta"
+           target="_blank"
+           rel="noopener noreferrer">
+            Escríbeme 💬
+        </a>
+    </div>
+
+    <!-- Avatar (siempre visible, abre WhatsApp) -->
+    <a href="https://wa.me/57{{ site_config.whatsapp_number }}?text=Hola%20Oscar%2C%20vi%20tu%20portafolio%20y%20me%20interesa%20tu%20servicio"
+       class="clippy-avatar-link"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Contactar a Oscar por WhatsApp">
+        {% if site_config.profile_image_static %}
+        <img src="{% static site_config.profile_image_static %}"
+             alt="Oscar Javier"
+             class="clippy-avatar-img">
+        {% elif site_config.profile_image %}
+        <img src="{{ site_config.profile_image.url }}"
+             alt="Oscar Javier"
+             class="clippy-avatar-img">
+        {% else %}
+        <span class="clippy-avatar-emoji">👨‍💻</span>
+        {% endif %}
+    </a>
+
+</div>
+{% endif %}
