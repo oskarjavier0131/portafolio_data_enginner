@@ -42,10 +42,18 @@
         --section-gap: 64px;
     }
 
-    /* Navbar */
+    /* Navbar — desktop links hidden, hamburger gone, bottom nav takes over */
     .navbar__links { display: none; }
     .navbar__cta   { display: none; }
-    .navbar__hamburger { display: flex; }
+    .navbar__hamburger { display: none; }
+
+    /* Espacio para el bottom nav */
+    body { padding-bottom: 72px; }
+
+    /* WhatsApp widget sube sobre el bottom nav */
+    .whatsapp-widget {
+        bottom: 86px !important;
+    }
 
     /* Hero */
     .hero__inner {

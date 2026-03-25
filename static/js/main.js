@@ -12,20 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }, { passive: true });
     }
 
-    // --- Menú móvil ---
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => {
-            const isOpen = mobileMenu.classList.toggle('open');
-            hamburger.setAttribute('aria-expanded', isOpen);
-        });
-
-        // Cerrar al hacer clic en un link
-        mobileMenu.querySelectorAll('.navbar__mobile-link').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        });
-    }
+    // --- Bottom nav — marcar ítem activo ---
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.bottom-nav__item').forEach(item => {
+        const href = item.getAttribute('href');
+        if (href && (href === currentPath || (href !== '/' && currentPath.startsWith(href)))) {
+            item.classList.add('active');
+        }
+    });
 
     // --- Scroll reveal (IntersectionObserver) ---
     const reveals = document.querySelectorAll('.reveal');
