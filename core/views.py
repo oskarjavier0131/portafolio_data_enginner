@@ -35,6 +35,10 @@ def services(request):
     return render(request, 'core/services.html', {'services': service_list})
 
 
+def consultor_ia(request):
+    return render(request, 'core/consultor_ia.html')
+
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)

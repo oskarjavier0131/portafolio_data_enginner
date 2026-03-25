@@ -2,9 +2,13 @@
 <header class="navbar" id="navbar">
     <div class="navbar__inner">
         <nav class="navbar__links" aria-label="Navegación principal">
-            <a href="{% url 'home' %}#certificaciones" class="navbar__link navbar__link--highlight">PROGRAMADOR</a>
+            <a href="{% url 'home' %}" class="navbar__link navbar__link--highlight">PROGRAMADOR</a>
             <a href="{% url 'about' %}"    class="navbar__link">Sobre mí</a>
             <a href="{% url 'blog' %}"     class="navbar__link">Reflexiones IT</a>
+            <a href="{% url 'consultor_ia' %}" class="navbar__link navbar__link--ai">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M12 3l1.912 5.885L20 10.8l-5.885 1.912L12 18.6l-1.912-5.885L4.2 10.8l5.885-1.912z"/><path d="M5 3l.956 2.942L9 7.2l-2.942.956L5 11.1l-.956-2.942L1 7.2l2.942-.956z"/><path d="M19 16l.637 1.961L22 18.8l-2.363.637L19 21.4l-.637-1.961L16 18.8l2.363-.637z"/></svg>
+                Asistente IA
+            </a>
         </nav>
         <button class="navbar__hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
             <span></span>
@@ -15,9 +19,13 @@
 
     <!-- Mobile menu -->
     <div class="navbar__mobile-menu" id="mobile-menu">
-        <a href="{% url 'home' %}#certificaciones" class="navbar__mobile-link navbar__link--highlight">PROGRAMADOR</a>
+        <a href="{% url 'home' %}" class="navbar__mobile-link navbar__link--highlight">PROGRAMADOR</a>
         <a href="{% url 'about' %}"    class="navbar__mobile-link">Sobre mí</a>
         <a href="{% url 'blog' %}"     class="navbar__mobile-link">Reflexiones IT</a>
+        <a href="{% url 'consultor_ia' %}" class="navbar__mobile-link navbar__link--ai">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M12 3l1.912 5.885L20 10.8l-5.885 1.912L12 18.6l-1.912-5.885L4.2 10.8l5.885-1.912z"/><path d="M5 3l.956 2.942L9 7.2l-2.942.956L5 11.1l-.956-2.942L1 7.2l2.942-.956z"/><path d="M19 16l.637 1.961L22 18.8l-2.363.637L19 21.4l-.637-1.961L16 18.8l2.363-.637z"/></svg>
+            Asistente IA
+        </a>
         <a href="{% url 'contact' %}"  class="navbar__mobile-link">Contáctame</a>
     </div>
 </header>
