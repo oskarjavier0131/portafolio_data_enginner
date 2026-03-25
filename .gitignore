@@ -27,3 +27,4 @@ env/
 # Sistema
 .DS_Store
 Thumbs.db
+.mcp.json
