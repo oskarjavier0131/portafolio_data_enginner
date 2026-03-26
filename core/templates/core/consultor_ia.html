@@ -13,319 +13,343 @@
     justify-content: center;
     padding: 80px 24px;
     position: relative;
+    overflow: hidden;
 }
 
-/* ── Pill choice screen ── */
-.cia-choice {
-    text-align: center;
-    max-width: 560px;
-    width: 100%;
-    animation: fadeInUp 0.7s ease both;
-}
+/* ── Mobile responsive ── */
+@media (max-width: 768px) {
+    .cia-section {
+        padding: 0;
+        min-height: calc(100dvh - 56px);
+        align-items: stretch;
+    }
 
-.cia-choice__eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
-    margin-bottom: 20px;
-}
+    .cia-section > div {
+        flex: 1;
+        justify-content: stretch;
+    }
 
-.cia-choice__title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-}
+    .cia-terminal-wrap {
+        flex: 1;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        animation: none;
+    }
 
-.cia-choice__title span {
-    background: linear-gradient(135deg, #ff4444 0%, #ff8800 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
+    .cia-terminal {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        height: calc(100dvh - 56px);
+        min-height: unset;
+        flex: 1;
+    }
 
-.cia-choice__desc {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 48px;
-}
+    .cia-terminal__header {
+        padding: 12px 16px;
+    }
 
-.cia-pills {
-    display: flex;
-    gap: 24px; /* Un poco más de espacio entre ellas */
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap; /* Forzamos que estén una al lado de la otra en desktop */
-}
+    .cia-terminal__body {
+        padding: 14px 12px;
+        gap: 10px;
+    }
 
-@media (max-width: 600px) {
-    .cia-pills {
-        flex-wrap: wrap; /* En móviles muy pequeños que bajen */
-        gap: 16px;
+    .cia-msg {
+        max-width: 88%;
+        padding: 9px 13px;
+    }
+
+    .cia-msg__text {
+        font-size: 0.95rem;
+    }
+
+    .cia-terminal__input-row {
+        padding: 10px 12px;
+        /* Stays above mobile bottom nav */
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+
+    .cia-terminal__input {
+        font-size: 1rem; /* evita zoom en iOS */
+        padding: 10px 16px;
+    }
+
+    .cia-terminal__send {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+    }
+
+    .cia-header__name {
+        font-size: 0.88rem;
     }
 }
 
-.cia-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    min-width: 200px; /* Un poco más estrechas */
-    padding: 14px 30px;
-    border-radius: 999px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background: #000; /* Fondo negro puro para que el neón resalte */
-    position: relative;
-    overflow: hidden;
+/* ── Matrix canvas background ── */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.18;
+    pointer-events: none;
 }
 
-.cia-pill--red {
-    color: #ff3333;
-    border-color: #ff3333;
-    box-shadow: 0 0 10px rgba(255, 51, 51, 0.3), inset 0 0 5px rgba(255, 51, 51, 0.2);
-    animation: neon-pulse-red 2s infinite;
-}
-
-.cia-pill--red:hover {
-    color: #ff6666;
-    border-color: #ff6666;
-    box-shadow: 0 0 25px rgba(255, 51, 51, 0.6), inset 0 0 10px rgba(255, 51, 51, 0.4);
-    transform: translateY(-2px) scale(1.05);
-}
-
-.cia-pill--blue {
-    color: #3388ff;
-    border-color: #3388ff;
-    box-shadow: 0 0 10px rgba(51, 136, 255, 0.3), inset 0 0 5px rgba(51, 136, 255, 0.2);
-    animation: neon-pulse-blue 2s infinite;
-}
-
-.cia-pill--blue:hover {
-    color: #66aaff;
-    border-color: #66aaff;
-    box-shadow: 0 0 25px rgba(51, 136, 255, 0.6), inset 0 0 10px rgba(51, 136, 255, 0.4);
-    transform: translateY(-2px) scale(1.05);
-}
-
-@keyframes neon-pulse-red {
-    0% { box-shadow: 0 0 10px rgba(255, 51, 51, 0.3); }
-    50% { box-shadow: 0 0 20px rgba(255, 51, 51, 0.5); }
-    100% { box-shadow: 0 0 10px rgba(255, 51, 51, 0.3); }
-}
-
-@keyframes neon-pulse-blue {
-    0% { box-shadow: 0 0 10px rgba(51, 136, 255, 0.3); }
-    50% { box-shadow: 0 0 20px rgba(51, 136, 255, 0.5); }
-    100% { box-shadow: 0 0 10px rgba(51, 136, 255, 0.3); }
-}
-
-.cia-pill__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.cia-pill--red .cia-pill__dot {
-    background: #ff3333;
-    box-shadow: 0 0 10px #ff3333;
-}
-
-.cia-pill--blue .cia-pill__dot {
-    background: #3388ff;
-    box-shadow: 0 0 10px #3388ff;
-}
-
-/* ── Terminal ── */
+/* ── Chat wrapper ── */
 .cia-terminal-wrap {
     width: 100%;
-    max-width: 900px; /* Más grande */
+    max-width: 760px;
     animation: fadeInUp 0.6s ease both;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
+/* ── Chat container ── */
 .cia-terminal {
-    background: #000000; /* Negro puro */
-    border: 1px solid #00ff88; /* Borde neón verde */
-    border-radius: 8px;
+    background: rgba(2, 8, 2, 0.92);
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
-    font-family: 'Courier New', 'Lucida Console', monospace;
+    box-shadow: 0 0 40px rgba(0, 255, 65, 0.08), 0 20px 60px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
     display: flex;
     flex-direction: column;
-    height: 70vh; /* Mucho más alto */
-    min-height: 500px;
+    height: 72vh;
+    min-height: 520px;
 }
 
+/* ── Chat header ── */
 .cia-terminal__header {
-    background: #0a0a0a;
-    padding: 10px 16px;
+    background: rgba(0, 10, 0, 0.8);
+    padding: 14px 20px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    border-bottom: 1px solid #1a1a1a;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.12);
 }
 
+.cia-header__avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #001a00, #003300);
+    border: 1.5px solid rgba(0, 255, 65, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+}
+
+.cia-header__info {
+    flex: 1;
+}
+
+.cia-header__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #00ff41;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.03em;
+}
+
+.cia-header__status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2px;
+}
+
+.cia-header__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00ff41;
+    box-shadow: 0 0 6px #00ff41;
+    animation: pulse-dot 2s infinite;
+}
+
+.cia-header__status-text {
+    font-size: 0.72rem;
+    color: rgba(0, 255, 65, 0.55);
+    font-family: 'Courier New', monospace;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px #00ff41; }
+    50% { opacity: 0.5; box-shadow: 0 0 2px #00ff41; }
+}
+
+/* ── Chat messages area ── */
 .cia-terminal__body {
     flex: 1;
-    padding: 24px;
+    padding: 20px 16px;
     overflow-y: auto;
     scroll-behavior: smooth;
-    background: linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
-    background-size: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.cia-terminal__body::-webkit-scrollbar { width: 6px; }
+.cia-terminal__body::-webkit-scrollbar { width: 4px; }
 .cia-terminal__body::-webkit-scrollbar-track { background: transparent; }
-.cia-terminal__body::-webkit-scrollbar-thumb { background: #00ff88; border-radius: 3px; }
+.cia-terminal__body::-webkit-scrollbar-thumb { background: rgba(0, 255, 65, 0.2); border-radius: 2px; }
 
-/* Mensajes estilo Chat IA + Terminal */
+/* ── Bubble messages ── */
 .cia-msg {
-    margin-bottom: 24px;
-    max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 12px;
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    line-height: 1.55;
     position: relative;
-    line-height: 1.6;
+    word-break: break-word;
 }
 
 .cia-msg--agent {
     align-self: flex-start;
-    background: rgba(0, 255, 136, 0.05);
-    border-left: 3px solid #00ff88;
-    color: #00ff88;
+    background: rgba(0, 255, 65, 0.07);
+    border: 1px solid rgba(0, 255, 65, 0.18);
+    border-bottom-left-radius: 4px;
+    color: #b8ffca;
 }
 
 .cia-msg--user {
     align-self: flex-end;
-    background: rgba(255, 255, 255, 0.05);
-    border-right: 3px solid #8b949e;
-    color: #e6edf3;
-    margin-left: auto;
+    background: rgba(0, 80, 20, 0.5);
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    border-bottom-right-radius: 4px;
+    color: #e8ffe8;
+}
+
+.cia-msg--system {
+    align-self: center;
+    background: transparent;
+    border: none;
+    color: rgba(0, 255, 65, 0.35);
+    font-size: 0.72rem;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
 }
 
 .cia-msg__prompt {
-    font-weight: bold;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     display: block;
+    font-family: 'Courier New', monospace;
+    opacity: 0.6;
+    color: #00ff41;
 }
 
-.cia-msg__time {
-    display: none; /* Simplificamos para look de chat */
+.cia-msg--user .cia-msg__prompt {
+    color: rgba(0, 255, 65, 0.5);
+    text-align: right;
 }
 
 .cia-msg__text {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    font-family: 'Inter', sans-serif;
     white-space: pre-wrap;
 }
 
 .cia-cursor {
     display: inline-block;
-    width: 10px;
-    height: 18px;
-    background: #00ff88;
+    width: 2px;
+    height: 15px;
+    background: #00ff41;
     vertical-align: middle;
-    animation: blink 1s step-end infinite;
-    box-shadow: 0 0 10px #00ff88;
+    margin-left: 2px;
+    animation: blink 0.8s step-end infinite;
+    box-shadow: 0 0 6px #00ff41;
+    border-radius: 1px;
 }
 
-/* ── Input row estilo Chat Moderno ── */
+/* ── Input row ── */
 .cia-terminal__input-row {
     display: flex;
     align-items: center;
-    padding: 20px;
-    background: #050505;
-    border-top: 1px solid #1a1a1a;
-    gap: 15px;
+    padding: 14px 16px;
+    background: rgba(0, 5, 0, 0.7);
+    border-top: 1px solid rgba(0, 255, 65, 0.1);
+    gap: 10px;
 }
 
 .cia-terminal__input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid #1a1a1a;
-    padding: 12px 20px;
-    border-radius: 25px;
-    color: #e6edf3;
-    font-family: 'Courier New', monospace;
+    background: rgba(0, 255, 65, 0.04);
+    border: 1px solid rgba(0, 255, 65, 0.15);
+    padding: 11px 18px;
+    border-radius: 24px;
+    color: #d4ffd4;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
     outline: none;
     transition: all 0.3s ease;
 }
 
+.cia-terminal__input::placeholder {
+    color: rgba(0, 255, 65, 0.25);
+}
+
 .cia-terminal__input:focus {
-    border-color: #00ff88;
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.1);
+    border-color: rgba(0, 255, 65, 0.4);
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.06);
+    background: rgba(0, 255, 65, 0.06);
 }
 
 .cia-terminal__send {
-    background: #00ff88;
-    color: #000;
-    border: none;
-    width: 40px;
-    height: 40px;
+    background: rgba(0, 255, 65, 0.12);
+    color: #00ff41;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    font-weight: bold;
+    flex-shrink: 0;
 }
 
 .cia-terminal__send:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #00ff88;
+    background: rgba(0, 255, 65, 0.22);
+    box-shadow: 0 0 16px rgba(0, 255, 65, 0.25);
+    transform: scale(1.05);
 }
 
-.cia-back-btn {
-    display: inline-flex;
+/* ── Loader typing indicator ── */
+.cia-typing {
+    display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 16px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 6px 16px;
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-family: var(--font-sans);
-    cursor: pointer;
-    transition: all 0.3s ease;
+    gap: 5px;
+    padding: 10px 14px;
 }
 
-.cia-back-btn:hover {
-    border-color: var(--border-hover);
-    color: var(--text-primary);
-}
-
-/* ── Loader dots ── */
-.cia-loader {
-    display: inline-flex;
-    gap: 4px;
-    align-items: center;
-}
-.cia-loader span {
-    width: 5px;
-    height: 5px;
-    background: #00ff88;
+.cia-typing span {
+    width: 6px;
+    height: 6px;
+    background: #00ff41;
     border-radius: 50%;
-    animation: loaderDot 1.2s ease-in-out infinite;
+    opacity: 0.4;
+    animation: typingBounce 1.2s ease-in-out infinite;
 }
-.cia-loader span:nth-child(2) { animation-delay: 0.2s; }
-.cia-loader span:nth-child(3) { animation-delay: 0.4s; }
+.cia-typing span:nth-child(2) { animation-delay: 0.2s; }
+.cia-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; box-shadow: 0 0 6px #00ff41; }
+}
 
 /* ── Keyframes ── */
 @keyframes fadeInUp {
@@ -337,37 +361,43 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
-
-@keyframes loaderDot {
-    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-    40% { transform: scale(1); opacity: 1; }
-}
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- Matrix rain canvas -->
+<canvas id="matrix-canvas"></canvas>
+
 <section class="cia-section" id="consultor-ia">
     <div style="width:100%; display:flex; flex-direction:column; align-items:center;">
 
-        <!-- ── Terminal ── -->
+        <!-- ── Chat ── -->
         <div class="cia-terminal-wrap" id="cia-terminal-wrap">
             <div class="cia-terminal">
+                <!-- Header -->
                 <div class="cia-terminal__header">
-                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f57;"></div>
-                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
-                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #28c840;"></div>
-                    <span style="margin-left: 10px; font-size: 0.75rem; color: #666;">asistente-ia.sh — 900x600</span>
+                    <div class="cia-header__avatar">&#x1F916;</div>
+                    <div class="cia-header__info">
+                        <div class="cia-header__name">Agente IA</div>
+                        <div class="cia-header__status">
+                            <div class="cia-header__dot"></div>
+                            <span class="cia-header__status-text">en línea</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="cia-terminal__body" id="cia-output">
-                    <!-- El mensaje inicial se cargará vía JS -->
-                </div>
+                <!-- Messages -->
+                <div class="cia-terminal__body" id="cia-output"></div>
+                <!-- Input -->
                 <div class="cia-terminal__input-row">
                     <input
                         type="text"
                         class="cia-terminal__input"
                         id="cia-input"
-                        placeholder="Sigue al conejo blanco... 🐇 (Presiona Enter)"
+                        placeholder="Sigue al conejo blanco..."
                         autocomplete="off"
+                        autocorrect="off"
+                        spellcheck="false"
+                        enterkeyhint="send"
                     >
                     <button class="cia-terminal__send" id="cia-send" onclick="sendMessage()">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
@@ -382,19 +412,50 @@
 
 {% block extra_js %}
 <script>
+/* ══════════════════════════════════════
+   Matrix rain background
+══════════════════════════════════════ */
+(function() {
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン01';
+    let cols, drops;
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        cols  = Math.floor(canvas.width / 16);
+        drops = Array(cols).fill(1);
+    }
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff41';
+        ctx.font = '14px Courier New';
+        for (let i = 0; i < drops.length; i++) {
+            const ch = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(ch, i * 16, drops[i] * 16);
+            if (drops[i] * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    setInterval(draw, 50);
+})();
+
+/* ══════════════════════════════════════
+   Chat IA
+══════════════════════════════════════ */
 const WEBHOOK_URL = 'https://n8n-production-1efa.up.railway.app/webhook/whatsapp-agent';
 const OUTPUT = document.getElementById('cia-output');
 const INPUT  = document.getElementById('cia-input');
 const SEND   = document.getElementById('cia-send');
 
-/* ── Helpers ── */
-function now() {
-    return new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-}
-
-function scrollBottom() {
-    OUTPUT.scrollTop = OUTPUT.scrollHeight;
-}
+function scrollBottom() { OUTPUT.scrollTop = OUTPUT.scrollHeight; }
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 let isConversationStarted = false;
 
@@ -404,33 +465,32 @@ async function initRabbit() {
     span.className = 'cia-msg__text';
     const div = document.createElement('div');
     div.className = 'cia-msg cia-msg--agent';
-    div.innerHTML = '<span class="cia-msg__prompt">SISTEMA</span>';
+    div.innerHTML = '<span class="cia-msg__prompt">Agente IA</span>';
     div.appendChild(span);
     OUTPUT.appendChild(div);
-    
     await typewrite(span, 'Sigue al conejo blanco... 🐇', 60);
-    await delay(500);
-    
-    const hint = document.createElement('div');
-    hint.className = 'cia-msg cia-msg--system';
-    hint.style.opacity = '0.5';
-    hint.innerHTML = '<span class="cia-msg__text">[ Presiona ENTER para iniciar la conexión ]</span>';
-    OUTPUT.appendChild(hint);
+    await delay(400);
+    appendSystemMsg('[ Presiona ENTER para iniciar la conexión ]');
+    scrollBottom();
+}
+
+function appendSystemMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'cia-msg cia-msg--system';
+    div.textContent = text;
+    OUTPUT.appendChild(div);
     scrollBottom();
 }
 
 async function startConversation() {
     if (isConversationStarted) return;
     isConversationStarted = true;
-    
-    INPUT.placeholder = "Escribiendo...";
+    INPUT.placeholder = 'Conectando...';
     INPUT.disabled = true;
-
-    await appendMsg('system', 'Estableciendo enlace neuronal...', true);
-    await delay(800);
+    appendSystemMsg('— enlace establecido —');
+    await delay(600);
     await appendMsg('agent', 'Bienvenido al Consultor IA. Soy el agente encargado de potenciar tu negocio. ¿En qué puedo ayudarte hoy?');
-    
-    INPUT.placeholder = "Escribe tu mensaje aquí...";
+    INPUT.placeholder = 'Escribe tu mensaje...';
     INPUT.disabled = false;
     INPUT.focus();
 }
@@ -441,7 +501,7 @@ function appendMsg(role, text, skipTypewriter = false) {
 
     const prompt = document.createElement('span');
     prompt.className = 'cia-msg__prompt';
-    prompt.textContent = role === 'user' ? 'oscar@consultor:~$' : 'SISTEMA>';
+    prompt.textContent = role === 'user' ? 'Tú' : 'Agente IA';
 
     const textSpan = document.createElement('span');
     textSpan.className = 'cia-msg__text';
@@ -459,18 +519,17 @@ function appendMsg(role, text, skipTypewriter = false) {
     return typewrite(textSpan, text);
 }
 
-function typewrite(el, text, speed = 28) {
+function typewrite(el, text, speed = 22) {
     return new Promise(resolve => {
         let i = 0;
         const cursor = document.createElement('span');
         cursor.className = 'cia-cursor';
         el.appendChild(cursor);
-
         function tick() {
             if (i < text.length) {
                 cursor.before(document.createTextNode(text[i++]));
                 scrollBottom();
-                setTimeout(tick, speed + Math.random() * 18);
+                setTimeout(tick, speed + Math.random() * 14);
             } else {
                 cursor.remove();
                 resolve();
@@ -484,7 +543,7 @@ function appendLoader() {
     const div = document.createElement('div');
     div.className = 'cia-msg cia-msg--agent';
     div.id = 'cia-loader-row';
-    div.innerHTML = `<span class="cia-msg__prompt">SISTEMA&gt;</span> <span class="cia-msg__text">Procesando... <span class="cia-cursor"></span></span>`;
+    div.innerHTML = `<span class="cia-msg__prompt">Agente IA</span><div class="cia-typing"><span></span><span></span><span></span></div>`;
     OUTPUT.appendChild(div);
     scrollBottom();
 }
@@ -494,60 +553,53 @@ function removeLoader() {
     if (el) el.remove();
 }
 
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-/* ── Send message ── */
 async function sendMessage() {
-    if (!isConversationStarted) {
-        startConversation();
-        return;
-    }
-
+    if (!isConversationStarted) { startConversation(); return; }
     const text = INPUT.value.trim();
     if (!text) return;
-
     INPUT.value = '';
     INPUT.disabled = true;
-
     await appendMsg('user', text, true);
     appendLoader();
-
     try {
         const res = await fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: text, phone: 'web-visitor', name: 'Visitante Web' })
         });
-
         removeLoader();
         if (!res.ok) throw new Error('HTTP ' + res.status);
-
-        let reply = '';
         const data = await res.json();
-        reply = data.response || data.output || data.message || data.text || data.reply || JSON.stringify(data);
-
+        const reply = data.response || data.output || data.message || data.text || data.reply || JSON.stringify(data);
         await appendMsg('agent', reply);
     } catch (err) {
         removeLoader();
-        await appendMsg('system', 'Error de conexión. Intenta de nuevo.', true);
+        appendSystemMsg('— error de conexión, intenta de nuevo —');
     } finally {
         INPUT.disabled = false;
         INPUT.focus();
     }
 }
 
-// Iniciar al cargar
 window.addEventListener('DOMContentLoaded', initRabbit);
 
-/* ── Enter key ── */
 INPUT.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
-        if (!isConversationStarted) {
-            startConversation();
-        } else if (!INPUT.disabled) {
-            sendMessage();
-        }
+        if (!isConversationStarted) startConversation();
+        else if (!INPUT.disabled) sendMessage();
     }
 });
+
+/* ── Keyboard visual viewport fix (iOS Safari) ── */
+if ('visualViewport' in window) {
+    window.visualViewport.addEventListener('resize', () => {
+        const terminal = document.querySelector('.cia-terminal');
+        if (terminal && window.innerWidth <= 768) {
+            const offset = window.innerHeight - window.visualViewport.height;
+            terminal.style.height = (window.visualViewport.height - 56) + 'px';
+            scrollBottom();
+        }
+    });
+}
 </script>
 {% endblock %}
