@@ -6,5 +6,8 @@
       "mcp__n8n-mcp__tools_documentation",
       "mcp__n8n-mcp__n8n_get_workflow"
     ]
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true
   }
 }
