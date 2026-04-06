@@ -53,11 +53,6 @@ class Project(models.Model):
     short_desc = models.CharField(max_length=120, blank=True)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
-    video = models.FileField(
-        upload_to='projects/videos/',
-        blank=True, null=True,
-        help_text="Video demo del proyecto (mp4, webm — máx 50 MB)"
-    )
     project_type = models.CharField(
         max_length=20, choices=TYPE_CHOICES, default='data',
         verbose_name="Tipo de proyecto"

@@ -66,7 +66,7 @@ class ProjectAdmin(admin.ModelAdmin):
             'fields': ('title', 'slug', 'short_desc', 'description', 'project_type'),
         }),
         ('Media', {
-            'fields': ('image', 'video'),
+            'fields': ('image',),
         }),
         ('Detalles', {
             'fields': ('technologies', 'url', 'order', 'is_featured'),
